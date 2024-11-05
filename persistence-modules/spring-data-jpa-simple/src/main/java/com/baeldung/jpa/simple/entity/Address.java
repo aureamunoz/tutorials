@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public  class Address {
@@ -19,6 +22,10 @@ public  class Address {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country country;
+
+    @OneToMany(mappedBy = "address")
+//    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    private List<Person> people;
 
     public Address(String zipCode, Country country) {
         this.zipCode = zipCode;
@@ -47,6 +54,14 @@ public  class Address {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<Person> people) {
+        this.people = people;
     }
 }
 

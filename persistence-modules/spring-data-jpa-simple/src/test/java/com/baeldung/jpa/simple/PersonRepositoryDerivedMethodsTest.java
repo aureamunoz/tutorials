@@ -41,9 +41,13 @@ class PersonRepositoryDerivedMethodsTest {
         personRepository.save(clement);
         personRepository.save(georgios);
 
+        personRepository.flush();
+
 
         List<Person> allByAddressZipCode = personRepository.findAllByAddressZipCode("28004");
+        List<Person> allByAddressCountryIsoCode = personRepository.findAllByAddressCountryIsoCode("SP");
 
+        Assertions.assertEquals(2, allByAddressCountryIsoCode.size());
         Assertions.assertEquals(2, allByAddressZipCode.size());
 
     }

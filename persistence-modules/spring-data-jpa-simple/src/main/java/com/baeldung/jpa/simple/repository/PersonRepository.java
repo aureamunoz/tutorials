@@ -16,7 +16,8 @@ public interface PersonRepository extends JpaRepository<Person,Long> {
 //
 //    List<Person> findAllByAddress_Country(String zipCode);
 //
-//    List<Person> findAllByAddressCountryIsoCode(String zipCode);
+//select p1_0.id,p1_0.address_id,p1_0.name from Person p1_0 left join Address a1_0 on a1_0.id=p1_0.address_id left join Country c1_0 on c1_0.id=a1_0.country_id where c1_0.isoCode=?
+    List<Person> findAllByAddressCountryIsoCode(String isoCode);
 //
 //    List<Person> findAllByAddress_CountryIsoCode(String zipCode);
 //
