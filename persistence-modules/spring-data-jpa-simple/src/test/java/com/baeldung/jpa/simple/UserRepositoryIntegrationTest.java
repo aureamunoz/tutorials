@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +36,10 @@ class UserRepositoryIntegrationTest {
         User user2 = new User(USER_NAME_ADAM, 20, BIRTHDATE, false);
         User user3 = new User(USER_NAME_EVE, 20, BIRTHDATE, true);
         User user4 = new User(null, 30, BIRTHDATE, false);
+        User user5 = new User("Tim", 38, BIRTHDATE, false);
+        User user6 = new User("Timothee", 19, BIRTHDATE, false);
 
-        userRepository.saveAll(Arrays.asList(user1, user2, user3, user4));
+        userRepository.saveAll(Arrays.asList(user1, user2, user3, user4, user5,user6));
     }
 
     @AfterEach
@@ -57,12 +60,15 @@ class UserRepositoryIntegrationTest {
 
         assertEquals(1, userRepository.findByNameIsNull()
             .size());
+        assertEquals(5, userRepository.findByNameIsNotNull()
+                .size());
     }
 
     @Test
     void whenFindByNameNot_thenReturnsCorrectResult() {
 
-        assertEquals(USER_NAME_EVE, userRepository.findByNameNot(USER_NAME_ADAM)
+        List<User> byNameNot = userRepository.findByNameNot(USER_NAME_ADAM);
+        assertEquals(USER_NAME_EVE, byNameNot
             .get(0)
             .getName());
     }
@@ -112,7 +118,8 @@ class UserRepositoryIntegrationTest {
     @Test
     void whenByAgeGreaterThan_thenReturnsCorrectResult() {
 
-        assertEquals(1, userRepository.findByAgeGreaterThan(25)
+        List<User> byAgeGreaterThan = userRepository.findByAgeGreaterThan(25);
+        assertEquals(1, byAgeGreaterThan
             .size());
     }
 
@@ -188,4 +195,13 @@ class UserRepositoryIntegrationTest {
         assertEquals(2, userRepository.findByNameOrderByName(USER_NAME_ADAM)
             .size());
     }
+
+    @Test
+    @Transactional
+    void whenFindByNameLikePatternThenReturnsCorrectResult() {
+
+        assertEquals(2, userRepository.findByNameLike("%Tim%")
+                .size());
+    }
+
 }

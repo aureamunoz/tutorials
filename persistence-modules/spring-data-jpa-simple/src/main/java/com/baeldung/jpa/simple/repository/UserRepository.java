@@ -62,4 +62,5 @@ public interface UserRepository extends JpaRepository<User, Integer>, UserReposi
 
     List<User> findByNameOrderByNameAsc(String name);
 
+
 }

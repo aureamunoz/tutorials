@@ -19,16 +19,13 @@ public class Person  {
     private Integer id;
 
     private String name;
-
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
     public Person(String name, Address address) {
         this.name = name;
         this.address = address;
     }
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
     public Integer getId() {
         return id;
     }
