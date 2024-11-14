@@ -190,6 +190,22 @@ class UserRepositoryIntegrationTest {
     }
 
     @Test
+    @Transactional
+    void whenByNameAndAgeOrActive() {
+
+        assertEquals(1, userRepository.findAllByNameAndAgeOrActive("Adam", 20, true)
+                .size());
+    }
+
+    @Test
+    @Transactional
+    void whenByNameOrAgeOrActive() {
+
+        assertEquals(3, userRepository.findAllByNameOrAgeOrActive("Adam", 20, true)
+                .size());
+    }
+
+    @Test
     void whenByNameOrderByName() {
 
         assertEquals(2, userRepository.findByNameOrderByName(USER_NAME_ADAM)

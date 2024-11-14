@@ -21,6 +21,8 @@ public interface PersonRepository extends JpaRepository<Person,Long> {
     List<Person> findAllByAddressCountryIsoCode(String isoCode);
 //
     List<Person> findAllByAddress_CountryIsoCode(String zipCode);
+
+    long countPersonByAddressCountryName(String name);
 //
 //    List<Person> findAllByAddress_Country_IsoCode(String zipCode);
 //

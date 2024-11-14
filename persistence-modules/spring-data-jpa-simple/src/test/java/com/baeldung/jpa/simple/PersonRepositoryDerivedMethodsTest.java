@@ -57,6 +57,8 @@ class PersonRepositoryDerivedMethodsTest {
 
         List<Person> allByAddressZipCode = personRepository.findAllByAddressZipCode("28004");
         List<Person> allByAddressCountryIsoCode = personRepository.findAllByAddressCountryIsoCode("SP");
+        long spanishCustomers = personRepository.countPersonByAddressCountryName("Spain");
+        Assertions.assertEquals(2, spanishCustomers);
 
         Assertions.assertEquals(2, allByAddressCountryIsoCode.size());
         Assertions.assertEquals(2, allByAddressZipCode.size());
@@ -89,5 +91,14 @@ class PersonRepositoryDerivedMethodsTest {
 //                .size());
 //        assertEquals(2, personRepository.findAllByAddress_Country("Spain")
 //                .size());
+    }
+
+    @Test
+    @Transactional
+    void shouldCountSpanishCustomers() {
+
+        long spanishCustomers = personRepository.countPersonByAddressCountryName("Spain");
+        Assertions.assertEquals(2, spanishCustomers);
+
     }
 }

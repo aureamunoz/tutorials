@@ -53,6 +53,9 @@ public interface UserRepository extends JpaRepository<User, Integer>, UserReposi
     List<User> findByNameOrAge(String name, Integer age);
 
     List<User> findByNameOrAgeAndActive(String name, Integer age, Boolean active);
+    List<User> findAllByNameAndAgeOrActive(String name, Integer age, Boolean active);
+
+    List<User> findAllByNameOrAgeOrActive(String name, int age, boolean active);
 
     List<User> findByNameOrderByName(String name);
 
